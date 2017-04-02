@@ -78,6 +78,10 @@ public class Catalog implements  java.io.Serializable{
         }
     }
 
+    public List<AbstractItem> getItemsList() {
+        return itemsList;
+    }
+
     public void play(AbstractItem item) throws IOException {
         File file = new File(item.getPath());
         Desktop dItem = Desktop.getDesktop();

@@ -17,7 +17,7 @@ import AdvancedProgramming.Lab4.Sources.Song;
  */
 public class MediaCatalog {
     private JList catalogItems;
-    private JPanel panel1;
+    public JPanel panel1;
     private JButton loadButton;
     private JButton saveButton;
     private JButton addButton;
@@ -54,13 +54,13 @@ public class MediaCatalog {
                     String newItem = name + ", " + year + " [" + path + "]";
                     DefaultListModel infoList = new DefaultListModel();
                     ListModel tempModel = catalogItems.getModel();
-//                    for (int i = 0; i < tempModel.getSize(); i++) {
-//                        if (newItem.equals(tempModel.getElementAt(i))) {
-//                            // element already in list
-//                            return;
-//                        }
-//                        infoList.addElement(tempModel.getElementAt(i));
-//                    }
+                    for (int i = 0; i < tempModel.getSize(); i++) {
+                        if (newItem.equals(tempModel.getElementAt(i))) {
+                            // element already in list
+                            return;
+                        }
+                        infoList.addElement(tempModel.getElementAt(i));
+                    }
                     Song newSong = new Song(name, path, year, "Unknown");
                     try {
                         items.add(newSong);
@@ -88,6 +88,12 @@ public class MediaCatalog {
                 }
                 try {
                     items.load(path);
+                    DefaultListModel infoList = new DefaultListModel();
+                    ListModel tempModel = catalogItems.getModel();
+                    for (AbstractItem newItem : items.getItemsList()) {
+                        infoList.addElement(newItem.getName() + ", " + newItem.getYear() + " [" + newItem.getPath() + "]");
+                    }
+                    catalogItems.setModel(infoList);
                     JOptionPane.showMessageDialog(null, "Data successfully loaded from " + path);
                 } catch (CustomException e) {
                     e.printStackTrace();
