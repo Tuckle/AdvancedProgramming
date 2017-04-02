@@ -1,6 +1,8 @@
 package Lab5_MediaCatalog;
 //package AdvancedProgramming.Lab5_MediaCatalog;
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,7 @@ import AdvancedProgramming.Lab4.Sources.Catalog;
 import AdvancedProgramming.Lab4.Sources.AbstractItem;
 import AdvancedProgramming.Lab4.Sources.CustomException;
 import AdvancedProgramming.Lab4.Sources.Song;
+import net.sf.dynamicreports.report.defaults.Default;
 
 /**
  * Created by apiriu on 3/25/2017.
@@ -28,11 +31,13 @@ public class MediaCatalog {
     private JTextField nameField;
     private JLabel nameLabel;
     private JTree treeList;
+    private JButton Play;
     private Catalog items;
 
     public MediaCatalog() {
         items = new Catalog();
         $$$setupUI$$$();
+        treeList.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("Objects")));
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -54,24 +59,47 @@ public class MediaCatalog {
                 } else {
                     // all output is ok
                     String newItem = name + ", " + year + " [" + path + "]";
-                    DefaultListModel infoList = new DefaultListModel();
-                    ListModel tempModel = catalogItems.getModel();
-                    for (int i = 0; i < tempModel.getSize(); i++) {
-                        if (newItem.equals(tempModel.getElementAt(i))) {
-                            // element already in list
-                            return;
-                        }
-                        infoList.addElement(tempModel.getElementAt(i));
-                    }
+//                    DefaultListModel infoList = new DefaultListModel();
+//                    ListModel tempModel = catalogItems.getModel();
+//                    for (int i = 0; i < tempModel.getSize(); i++) {
+//                        if (newItem.equals(tempModel.getElementAt(i))) {
+//                            // element already in list
+//                            return;
+//                        }
+////                        infoList.addElement(tempModel.getElementAt(i));
+//                    }
                     Song newSong = new Song(name, path, year, "Unknown");
                     try {
                         items.add(newSong);
                     } catch (CustomException e) {
                         e.printStackTrace();
                     }
-                    infoList.addElement(newItem);
-                    catalogItems.setModel(infoList);
-                    return;
+//                    infoList.addElement(newItem);
+////                    catalogItems.setModel(infoList);
+                    //                    if (root.isLeaf()) {
+//                        DefaultMutableTreeNode s = new DefaultMutableTreeNode("Songs");
+//                        root.add(s);
+//                        s = new DefaultMutableTreeNode("Books");
+//                        root.add(s);
+//                        s = new DefaultMutableTreeNode("Movies");
+//                        root.add(s);
+//                    }
+
+                    DefaultTreeModel tempTreeModel = (DefaultTreeModel) treeList.getModel();
+                    DefaultMutableTreeNode root = (DefaultMutableTreeNode) tempTreeModel.getRoot();
+
+                    DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(name);
+                    DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(path);
+                    newNode.add(tempNode);
+                    tempNode = new DefaultMutableTreeNode(year);
+                    newNode.add(tempNode);
+                    DefaultMutableTreeNode song = new DefaultMutableTreeNode(newItem);
+                    root.add(newNode);
+//                    root.add(rootTree);
+                    tempTreeModel.setRoot(root);
+//                    tempTreeModel.insertNodeInto(new DefaultMutableTreeNode(newSong), root, root.getChildCount());
+
+                    treeList.setModel(tempTreeModel);
                 }
             }
         });
@@ -90,12 +118,17 @@ public class MediaCatalog {
                 }
                 try {
                     items.load(path);
-                    DefaultListModel infoList = new DefaultListModel();
-                    ListModel tempModel = catalogItems.getModel();
+                    DefaultTreeModel tempTreeModel = (DefaultTreeModel) treeList.getModel();
+                    DefaultMutableTreeNode root = (DefaultMutableTreeNode) tempTreeModel.getRoot();
                     for (AbstractItem newItem : items.getItemsList()) {
-                        infoList.addElement(newItem.getName() + ", " + newItem.getYear() + " [" + newItem.getPath() + "]");
+                        DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(newItem.getName());
+                        DefaultMutableTreeNode tempNode = new DefaultMutableTreeNode(newItem.getPath());
+                        newNode.add(tempNode);
+                        tempNode = new DefaultMutableTreeNode(newItem.getYear());
+                        newNode.add(tempNode);
+                        root.add(newNode);
                     }
-                    catalogItems.setModel(infoList);
+                    tempTreeModel.setRoot(root);
                     JOptionPane.showMessageDialog(null, "Data successfully loaded from " + path);
                 } catch (CustomException e) {
                     e.printStackTrace();
@@ -122,6 +155,12 @@ public class MediaCatalog {
                 }
             }
         });
+        Play.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -145,7 +184,7 @@ public class MediaCatalog {
      */
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
-        panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(9, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(10, 2, new Insets(0, 0, 0, 0), -1, -1));
         panel1.setMaximumSize(new Dimension(1920, 1080));
         panel1.setMinimumSize(new Dimension(1024, 720));
         panel1.setPreferredSize(new Dimension(1024, 720));
@@ -178,8 +217,17 @@ public class MediaCatalog {
         nameLabel = new JLabel();
         nameLabel.setText("Name");
         panel1.add(nameLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        panel1.add(scrollPane1, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         treeList = new JTree();
-        panel1.add(treeList, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        treeList.putClientProperty("JTree.lineStyle", "");
+        scrollPane1.setViewportView(treeList);
+        final com.intellij.uiDesigner.core.Spacer spacer3 = new com.intellij.uiDesigner.core.Spacer();
+        panel1.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(9, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        Play = new JButton();
+        Play.setSelected(true);
+        Play.setText("Play");
+        panel1.add(Play, new com.intellij.uiDesigner.core.GridConstraints(9, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_EAST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
