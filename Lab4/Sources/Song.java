@@ -2,7 +2,7 @@ package AdvancedProgramming.Lab4.Sources;
 
 public class Song extends AbstractItem{
 
-	public Song(String inputName, String inputPath, int inputYear, String inputAuthor)
+	Song(String inputName, String inputPath, int inputYear, String inputAuthor)
 	{
 		this.name = inputName;
 		this.path = inputPath;

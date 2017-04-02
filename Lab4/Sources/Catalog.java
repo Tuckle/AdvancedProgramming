@@ -1,5 +1,4 @@
 package AdvancedProgramming.Lab4.Sources;
-
 import java.awt.Desktop;
 import java.io.*;
 import java.util.*;
@@ -7,7 +6,7 @@ import java.util.*;
 public class Catalog implements  java.io.Serializable{
     List<AbstractItem> itemsList;
 
-    public Catalog() {
+    Catalog() {
         itemsList = new ArrayList<AbstractItem>();
     }
 
@@ -76,10 +75,6 @@ public class Catalog implements  java.io.Serializable{
         for (AbstractItem item : itemsList) {
             System.out.println(item.getName());
         }
-    }
-
-    public List<AbstractItem> getItemsList() {
-        return itemsList;
     }
 
     public void play(AbstractItem item) throws IOException {
