@@ -27,6 +27,7 @@ public class MediaCatalog {
     private JLabel pathLabel;
     private JTextField nameField;
     private JLabel nameLabel;
+    private JTable table1;
     private Catalog items;
 
     public MediaCatalog() {
@@ -151,11 +152,10 @@ public class MediaCatalog {
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(9, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setMaximumSize(new Dimension(1920, 1080));
+        panel1.setMinimumSize(new Dimension(1024, 720));
+        panel1.setPreferredSize(new Dimension(1024, 720));
         panel1.setBorder(BorderFactory.createTitledBorder("Add media Item"));
-        catalogItems = new JList();
-        final DefaultListModel defaultListModel1 = new DefaultListModel();
-        catalogItems.setModel(defaultListModel1);
-        panel1.add(catalogItems, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         loadButton = new JButton();
         loadButton.setText("Load");
         panel1.add(loadButton, new com.intellij.uiDesigner.core.GridConstraints(8, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_EAST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -184,6 +184,8 @@ public class MediaCatalog {
         nameLabel = new JLabel();
         nameLabel.setText("Name");
         panel1.add(nameLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        table1 = new JTable();
+        panel1.add(table1, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
     }
 
     /**
