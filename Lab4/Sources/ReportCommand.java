@@ -40,7 +40,7 @@ public class ReportCommand extends Command {
                     output += "</tr>";
                 }
                 output += "\n</table>\n</body>\n</html>";
-                OutputStream fis = new FileOutputStream("C:\\Faculty\\Sem2\\Java\\report.html");
+                OutputStream fis = new FileOutputStream("report.html");
                 PrintStream printStream = new PrintStream(fis);
                 printStream.print(output);
                 printStream.close();

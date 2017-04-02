@@ -9,10 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import AdvancedProgramming.Lab4.Sources.Catalog;
-import AdvancedProgramming.Lab4.Sources.AbstractItem;
-import AdvancedProgramming.Lab4.Sources.CustomException;
-import AdvancedProgramming.Lab4.Sources.Song;
+import AdvancedProgramming.Lab4.Sources.*;
 import net.sf.dynamicreports.report.defaults.Default;
 
 /**
@@ -32,6 +29,7 @@ public class MediaCatalog {
     private JLabel nameLabel;
     private JTree treeList;
     private JButton Play;
+    private JButton Report;
     private Catalog items;
 
     public MediaCatalog() {
@@ -158,7 +156,46 @@ public class MediaCatalog {
         Play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                if (nameField.getText().length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Play error! Name not given.");
+                    return;
+                }
+                PlayCommand pl = new PlayCommand(items, nameField.getText());
+                try {
+                    pl.execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (CustomException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Report.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (items.getItemsList().size() == 0) {
+                    JOptionPane.showMessageDialog(null, "No items in list, could not create report with 0 items.");
+                    return;
+                }
+                String type = "pdf";
+                if (nameField.getText().length() != 0) {
+                    if (nameField.getText().toLowerCase().equals("pdf")) {
+                        type = "pdf";
+                    } else if (nameField.getText().toLowerCase().equals("html")) {
+                        type = "html";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Name has not matching report types(pdf or html). Try again or leave it blank!");
+                        return;
+                    }
+                }
+                ReportCommand cmd = new ReportCommand(items, type);
+                try {
+                    cmd.execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (CustomException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -222,12 +259,13 @@ public class MediaCatalog {
         treeList = new JTree();
         treeList.putClientProperty("JTree.lineStyle", "");
         scrollPane1.setViewportView(treeList);
-        final com.intellij.uiDesigner.core.Spacer spacer3 = new com.intellij.uiDesigner.core.Spacer();
-        panel1.add(spacer3, new com.intellij.uiDesigner.core.GridConstraints(9, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         Play = new JButton();
         Play.setSelected(true);
         Play.setText("Play");
         panel1.add(Play, new com.intellij.uiDesigner.core.GridConstraints(9, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_EAST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        Report = new JButton();
+        Report.setText("Report");
+        panel1.add(Report, new com.intellij.uiDesigner.core.GridConstraints(9, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
