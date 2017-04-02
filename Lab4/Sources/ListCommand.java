@@ -2,7 +2,7 @@ package AdvancedProgramming.Lab4.Sources;
 import java.io.IOException;
 
 public class ListCommand extends Command{
-    ListCommand(Catalog inputCatalog)
+    public ListCommand(Catalog inputCatalog)
     {
         this.setNumberOfArguments(0);
         this.catalog = inputCatalog;

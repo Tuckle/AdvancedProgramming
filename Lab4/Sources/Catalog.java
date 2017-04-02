@@ -6,7 +6,7 @@ import java.util.*;
 public class Catalog implements  java.io.Serializable{
     List<AbstractItem> itemsList;
 
-    Catalog() {
+    public Catalog() {
         itemsList = new ArrayList<AbstractItem>();
     }
 
@@ -15,6 +15,11 @@ public class Catalog implements  java.io.Serializable{
             throw new CustomException("Given item is empty");
         }
         itemsList.add(item);
+    }
+
+    public List<AbstractItem> getItemsList()
+    {
+        return itemsList;
     }
 
     public void save(String path) throws CustomException, IOException {

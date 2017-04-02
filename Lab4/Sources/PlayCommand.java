@@ -2,7 +2,7 @@ package AdvancedProgramming.Lab4.Sources;
 import java.io.IOException;
 
 public class PlayCommand extends Command{
-    PlayCommand(Catalog inputCatalog, String inputString)
+    public PlayCommand(Catalog inputCatalog, String inputString)
     {
         this.catalog = inputCatalog;
         this.setNumberOfArguments(1);

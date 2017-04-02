@@ -7,7 +7,7 @@ public abstract class Command {
     List<String> arguments;
     Catalog catalog;
 
-    Command()
+    public Command()
     {
         this.arguments = new ArrayList<String>();
         this.numberOfArguments = 0;

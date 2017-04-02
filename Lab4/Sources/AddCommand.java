@@ -5,7 +5,7 @@ import java.io.IOException;
  * Created by gbalan on 3/25/2017.
  */
 public class AddCommand extends Command{
-    AddCommand(Catalog inputCatalog, String... inputStrings) throws CustomException {
+    public AddCommand(Catalog inputCatalog, String... inputStrings) throws CustomException {
         if (inputStrings.length != 5)
         {
             throw new CustomException("Numar de parametru invalid pentru comanda move");

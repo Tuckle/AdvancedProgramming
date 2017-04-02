@@ -2,7 +2,7 @@ package AdvancedProgramming.Lab4.Sources;
 
 public class Movie extends AbstractItem{
 
-	Movie(String inputName, String inputPath, int inputYear, String inputAuthor)
+	public Movie(String inputName, String inputPath, int inputYear, String inputAuthor)
 	{
 		this.name = inputName;
 		this.path = inputPath;

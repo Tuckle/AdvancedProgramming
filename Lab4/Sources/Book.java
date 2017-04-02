@@ -2,7 +2,7 @@ package AdvancedProgramming.Lab4.Sources;
 
 public class Book extends AbstractItem {
 
-	Book(String inputName, String inputPath, int inputYear, String inputAuthor)
+	public Book(String inputName, String inputPath, int inputYear, String inputAuthor)
 	{
 		this.name = inputName;
 		this.path = inputPath;

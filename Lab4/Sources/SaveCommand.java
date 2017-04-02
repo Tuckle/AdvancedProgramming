@@ -2,7 +2,7 @@ package AdvancedProgramming.Lab4.Sources;
 import java.io.IOException;
 
 public class SaveCommand extends Command{
-    SaveCommand(Catalog inputCatalog, String inputString)
+    public SaveCommand(Catalog inputCatalog, String inputString)
     {
         this.catalog = inputCatalog;
         this.setNumberOfArguments(1);

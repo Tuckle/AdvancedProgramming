@@ -7,7 +7,7 @@ import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.JRDataSource;
 
 public class ReportCommand extends Command {
-    ReportCommand(Catalog inputCatalog, String inputString)
+    public ReportCommand(Catalog inputCatalog, String inputString)
     {
         this.catalog = inputCatalog;
         this.setNumberOfArguments(1);
