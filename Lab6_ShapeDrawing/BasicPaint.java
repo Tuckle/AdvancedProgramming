@@ -1,3 +1,4 @@
+package AdvancedProgramming.Lab6_ShapeDrawing;
 import java.awt.*;
 import java.awt.RenderingHints.Key;
 import java.awt.event.*;

@@ -1,3 +1,4 @@
+package AdvancedProgramming.Lab6_ShapeDrawing;
 import javax.swing.*;
 import javax.tools.Tool;
 import java.awt.*;
@@ -11,11 +12,13 @@ public class Main {
         DrawingFrame dFrame = new DrawingFrame();
         JFrame frame = dFrame.getFrame();
         Canvas  dCanvas = new Canvas();
-        frame.getContentPane().add(dCanvas, BorderLayout.CENTER);
+        JPanel tempPanel = new JPanel();
+        tempPanel.add(dCanvas);
+        frame.getContentPane().add(tempPanel, BorderLayout.CENTER);
         ControlPanel controlPanel = new ControlPanel(dCanvas);
         JPanel panel = controlPanel.getControlPanel();
         frame.getContentPane().add(panel, BorderLayout.SOUTH);
-        Toolbar toolbar = new Toolbar();
+        Toolbar toolbar = new Toolbar(dCanvas);
         JPanel secondPanel = toolbar.getPannel();
         frame.getContentPane().add(secondPanel, BorderLayout.NORTH);
         frame.pack();

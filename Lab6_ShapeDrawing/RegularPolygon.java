@@ -1,3 +1,4 @@
+package AdvancedProgramming.Lab6_ShapeDrawing;
 import java.awt.*;
 
 public class RegularPolygon extends Polygon {

@@ -1,3 +1,4 @@
+package AdvancedProgramming.Lab6_ShapeDrawing;
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,4 +1,7 @@
+package AdvancedProgramming.Lab6_ShapeDrawing;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by gbalan on 4/2/2017.
@@ -12,8 +15,10 @@ public class Toolbar {
     JSpinner shapesSpineer;
     JSpinner strokeSpineer;
     JPanel mainPanel;
-    public Toolbar()
+    Canvas  inputCanvas;
+    public Toolbar(Canvas itr)
     {
+        inputCanvas = itr;
         mainPanel = new JPanel();
         numberOfSides = new JLabel();
         numberOfSides.setText("Number of sides:");
@@ -23,6 +28,17 @@ public class Toolbar {
         stroke.setText("Stroke");
         drawButton = new JButton();
         drawButton.setText("Draw");
+        drawButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int shp = Integer.parseInt(shapesSpineer.getValue().toString());
+                int sid = Integer.parseInt(sidesSpineer.getValue().toString());
+                int str  = Integer.parseInt(strokeSpineer.getValue().toString());
+                inputCanvas.setCustomStuff(shp, sid, str);
+                inputCanvas.setTempValue(2);
+                inputCanvas.repaint();
+            }
+        });
         sidesSpineer = new JSpinner();
         mainPanel.add(numberOfSides);
         mainPanel.add(sidesSpineer);
