@@ -1,6 +1,8 @@
 package AdvancedProgramming.Lab9_Database;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by apiriu on 5/15/2017.
@@ -28,5 +30,38 @@ public class MatchController {
             return id;
         }
     }
+    public void displayTeamRankByMatchesPlayed() {
+        Connection con = Database.getConnection();
+        try (Statement stmt = con.createStatement()) {
+            Map<Integer, Integer> team_ids = new HashMap<Integer, Integer>();
 
+            ResultSet rs = stmt.executeQuery("select team_id1 from matches");
+            Integer teamId = rs.next() ? rs.getInt(1) : null;
+            while(teamId != null && teamId > 0) {
+                if(team_ids.containsKey(teamId)){
+                    team_ids[teamId]++;
+                }
+                else {
+                    team_ids[teamId] = 1;
+                }
+                teamId = rs.next() ? rs.getInt(1) : null;
+            }
+
+            rs = stmt.executeQuery("select team_id2 from matches");
+            teamId = rs.next() ? rs.getInt(1) : null;
+            while(teamId != null && teamId > 0) {
+                if(team_ids.containsKey(teamId)){
+                    team_ids[teamId]++;
+                }
+                else {
+                    team_ids[teamId] = 1;
+                }
+                teamId = rs.next() ? rs.getInt(1) : null;
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
