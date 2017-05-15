@@ -27,12 +27,12 @@ public class PlayerController {
     public void list(int fcbId) {
         Connection con = Database.getConnection();
         try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery("select id from players where team_id='" + fcbId + "'");
-            String id = rs.next() ? rs.getString(1) : null;
-            System.out.println(id + '\n');
-            while(id != null && id.length() > 0) {
-                id = rs.next() ? rs.getString(1) : null;
-                System.out.println(id + '\n');
+            ResultSet rs = stmt.executeQuery("select NAME from players where team_id='" + fcbId + "'");
+            String name = rs.next() ? rs.getString(1) : null;
+            System.out.println(name);
+            while(name != null && name.length() > 0) {
+                System.out.println(name);
+                name = rs.next() ? rs.getString(1) : null;
             }
             rs.close();
         } catch (SQLException e) {
