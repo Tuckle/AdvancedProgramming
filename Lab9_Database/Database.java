@@ -1,6 +1,8 @@
 package AdvancedProgramming.Lab9_Database;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by apiriu on 5/15/2017.
@@ -55,6 +57,24 @@ public class Database {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static List<Integer> getQueryList(String inputQuery) {
+        List<Integer> resultList = new ArrayList<Integer>();
+        Connection con = Database.getConnection();
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(inputQuery);
+            Integer id = rs.next() ? rs.getInt(1) : null;
+            resultList.add(id);
+            while (id != null && id > 0) {
+                id = rs.next() ? rs.getInt(1) : null;
+                resultList.add(id);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultList;
     }
     //Implement the method createConnection()
     //Implement the method closeConnection()
